@@ -1,0 +1,43 @@
+Mode:
+Encryption Mode
+
+Original Plaintext:
+"Not only is the Universe stranger than we think, it is stranger than we can think." ~ Werner Heisenberg
+
+Preprocessed Plaintext:
+NOTONLYISTHEUNIVERSESTRANGERTHANWETHINKITISSTRANGERTHANWECANTHINKWERNERHEISENBER
+G
+
+Hill Cipher Key Dimension:
+7
+
+Hill Cipher Key Matrix:
+   2   3   5   7  11  13  17
+   4   6   8  10  12  14  16
+   6  25  30  35  40  45  50
+   7  18  40  70  13 100  47
+   8   5   3   7  19  23  29
+   6   7   8   9  10  11  12
+  21  12  43  37  31  29  23
+
+Padded Hill Cipher Plaintext:
+NOTONLYISTHEUNIVERSESTRANGERTHANWETHINKITISSTRANGERTHANWECANTHINKWERNERHEISENBER
+GXXX
+
+Ciphertext after Hill Cipher:
+TELIRFILOHDDZTUKUOIOVPGCANIJNOYSNSPUQJXMBXDAIEZAHSQLSQLLVOCJDYFUYTUYTNEARAKLKSUF
+XMVT
+
+Playfair Keyword:
+BALON
+
+Playfair Table:
+B A L O N
+C D E F G
+H I K M P
+Q R S T U
+V W X Y Z
+
+Ciphertext after Playfair:
+SFAKTDKABMEWGWUQPSAMBYUPDBAPPAFOULUKQRKWHOWEDRGXBITREXSBBXBFRIOMTZUQOYLGDWLIESTQ
+EYHYUY

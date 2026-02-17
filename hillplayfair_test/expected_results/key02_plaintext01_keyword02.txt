@@ -1,0 +1,35 @@
+Mode:
+Encryption Mode
+
+Original Plaintext:
+abcdefghijklmnopqrstuvwxyz0123456789
+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+Preprocessed Plaintext:
+ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+Hill Cipher Key Dimension:
+2
+
+Hill Cipher Key Matrix:
+   3   2
+   5   7
+
+Padded Hill Cipher Plaintext:
+ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+Ciphertext after Hill Cipher:
+CHMFWDGBQZAXKVUTEROPYNILSJCHMFWDGBQZAXKVUTEROPYNILSJ
+
+Playfair Keyword:
+IGSAW
+
+Playfair Table:
+I G S A W
+B C D E F
+H K L M N
+O P Q R T
+U V X Y Z
+
+Ciphertext after Playfair:
+BKNESFICTXSYPGZOMYPQZMSHAGBKNESFICTXSYPGZOMYPQZMSHAG

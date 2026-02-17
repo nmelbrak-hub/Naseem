@@ -1,0 +1,35 @@
+Mode:
+Encryption Mode
+
+Original Plaintext:
+abcdefghijklmnopqrstuvwxyz0123456789
+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+Preprocessed Plaintext:
+ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+Hill Cipher Key Dimension:
+2
+
+Hill Cipher Key Matrix:
+   1   0
+   0   1
+
+Padded Hill Cipher Plaintext:
+ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+Ciphertext after Hill Cipher:
+ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+Playfair Keyword:
+MONARCHY
+
+Playfair Table:
+M O N A R
+C H Y B D
+E F G I K
+L P Q S T
+U V W X Z
+
+Ciphertext after Playfair:
+BIHCFGFYSAKEUCANQSATLZWXWBXRDHCKGIBFKEUCANQSATLZWXWBUZ
