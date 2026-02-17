@@ -27,11 +27,11 @@ Due Date: February 16th 2026
 
 void wrap_print(const char *text) {
     int len = strlen(text);
-    if (len == 0) return;
     for (int i = 0; i < len; i++) {
         printf("%c", text[i]);
         if ((i + 1) % 80 == 0 && (i + 1) != len) printf("\n");
     }
+    printf("\n");
 }
 
 char* read_entire_file(const char *filename) {
@@ -42,12 +42,8 @@ char* read_entire_file(const char *filename) {
     fseek(f, 0, SEEK_SET);
     char *buf = malloc(size + 1);
     if (buf) {
-        size_t read_size = fread(buf, 1, size, f);
-        buf[read_size] = '\0';
-        // Trim trailing newlines/spaces from the original plaintext
-        while (read_size > 0 && isspace(buf[read_size - 1])) {
-            buf[--read_size] = '\0';
-        }
+        size_t n = fread(buf, 1, size, f);
+        buf[n] = '\0';
     }
     fclose(f);
     return buf;
@@ -104,33 +100,36 @@ void build_table(const char *key, char table[5][5]) {
 }
 
 char* playfair_preprocess(const char *input) {
-    int in_len = strlen(input);
-    char *out = malloc(in_len * 2 + 2); 
+    int len = strlen(input);
+    char *res = malloc(len * 2 + 1);
     int i = 0, j = 0;
-    while (i < in_len) {
-        out[j++] = input[i];
-        if (i + 1 < in_len) {
-            if (input[i] == input[i+1]) {
-                out[j++] = 'X';
-                i++; 
+    while (i < len) {
+        char a = input[i];
+        if (a == 'J') a = 'I';
+        res[j++] = a;
+        if (i + 1 < len) {
+            char b = input[i+1];
+            if (b == 'J') b = 'I';
+            if (a == b) {
+                res[j++] = 'X';
+                i++;
             } else {
-                out[j++] = input[i+1];
+                res[j++] = b;
                 i += 2;
             }
         } else {
-            out[j++] = 'X'; 
+            res[j++] = 'X';
             i++;
         }
     }
-    out[j] = '\0';
-    return out;
+    res[j] = '\0';
+    return res;
 }
 
 void playfair_encrypt(char *text, char table[5][5]) {
     int len = strlen(text);
     for (int k = 0; k < len; k += 2) {
         int r1, c1, r2, c2;
-        r1=c1=r2=c2=0;
         for (int r = 0; r < 5; r++) {
             for (int c = 0; c < 5; c++) {
                 if (table[r][c] == text[k]) { r1 = r; c1 = c; }
@@ -152,14 +151,13 @@ void playfair_encrypt(char *text, char table[5][5]) {
 
 int main(int argc, char *argv[]) {
     if (argc != 5) return 0;
-
     FILE *kf = fopen(argv[2], "r");
     char *raw_plain = read_entire_file(argv[3]);
     char *keyword_raw = read_entire_file(argv[4]);
     if (!kf || !raw_plain || !keyword_raw) return 0;
 
     int n;
-    if (fscanf(kf, "%d", &n) != 1) return 0;
+    fscanf(kf, "%d", &n);
     int **matrix = malloc(n * sizeof(int *));
     for (int i = 0; i < n; i++) {
         matrix[i] = malloc(n * sizeof(int));
@@ -178,12 +176,11 @@ int main(int argc, char *argv[]) {
 
     printf("\nPreprocessed Plaintext:\n"); 
     wrap_print(hill_input); 
-    printf("\n");
 
     printf("\nHill Cipher Key Dimension:\n%d\n\n", n);
     printf("Hill Cipher Key Matrix:\n");
     for (int i = 0; i < n; i++) {
-        printf("   "); 
+        printf("   "); // The 3-space lead-in
         for (int j = 0; j < n; j++) {
             printf("%d%s", matrix[i][j], (j == n - 1 ? "" : "   "));
         }
@@ -197,17 +194,15 @@ int main(int argc, char *argv[]) {
     }
     printf("Padded Hill Cipher Plaintext:\n"); 
     wrap_print(hill_input); 
-    printf("\n\n");
 
     hill_encrypt(n, matrix, hill_input);
-    printf("Ciphertext after Hill Cipher:\n"); 
+    printf("\nCiphertext after Hill Cipher:\n"); 
     wrap_print(hill_input); 
-    printf("\n\n");
 
     sanitize_keyword(keyword_raw);
     char pf_table[5][5];
     build_table(keyword_raw, pf_table);
-    printf("Playfair Keyword:\n%s\n\n", keyword_raw);
+    printf("\nPlayfair Keyword:\n%s\n\n", keyword_raw);
     printf("Playfair Table:\n");
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) printf("%c%c", pf_table[i][j], (j == 4 ? '\n' : ' '));
@@ -219,7 +214,6 @@ int main(int argc, char *argv[]) {
 
     printf("Ciphertext after Playfair:\n");
     wrap_print(pf_input);
-    printf("\n");
 
     free(pf_input); free(raw_plain); free(hill_input); free(keyword_raw);
     for(int i=0; i<n; i++) free(matrix[i]); free(matrix);
