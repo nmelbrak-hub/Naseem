@@ -111,14 +111,14 @@ char* playfair_preprocess(const char *input) {
             char b = input[i+1];
             if (b == 'J') b = 'I';
             if (a == b) {
-                res[j++] = 'X';
+                res[j++] = (a == 'X') ? 'Z' : 'X';
                 i++;
             } else {
                 res[j++] = b;
                 i += 2;
             }
         } else {
-            res[j++] = 'X';
+            res[j++] = (a == 'Z') ? 'X' : 'Z';
             i++;
         }
     }
